@@ -12,7 +12,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "BACKEND_URL": "http://localhostX:53824/api/values",
+        "BACKEND_URL": "http://localhost:53824/api/values",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

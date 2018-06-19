@@ -20,8 +20,16 @@ namespace SocialList.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var hostName = Environment.GetEnvironmentVariable("COMPUTERNAME") ?? Environment.GetEnvironmentVariable("HOSTNAME");
+    
+
             var tasks = await GetTasks();
+            tasks.Insert(0, $"Web App Host Name={hostName}");
+
+            tasks.Insert(0, $"Web App List Rendered at {DateTime.Now}");
             ViewData["Tasks"] = tasks;
+
+            
             return View(tasks);
         }
 

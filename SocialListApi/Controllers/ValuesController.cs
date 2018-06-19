@@ -13,7 +13,10 @@ namespace SocialListApi.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            var hostName = Environment.GetEnvironmentVariable("COMPUTERNAME") ?? Environment.GetEnvironmentVariable("HOSTNAME");
+            var customMessage = Environment.GetEnvironmentVariable("API_MESSAGE") ?? "__no message__";
+
+            return new string[] { $"api list loaded at {DateTime.Now}", $"Api Host Name={hostName}", $"Custom Message={customMessage}", "value1", "value2" };
         }
 
         // GET api/values/5

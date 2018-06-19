@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  sociallist:
+    image: ${DOCKER_REGISTRY}sociallist
+    build:
+      context: .
+      dockerfile: SocialList/Dockerfile
+
+  sociallistapi:
+    image: ${DOCKER_REGISTRY}sociallistapi
+    build:
+      context: .
+      dockerfile: SocialListApi/Dockerfile
+

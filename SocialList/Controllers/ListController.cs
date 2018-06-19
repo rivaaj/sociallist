@@ -35,14 +35,32 @@ namespace SocialList.Controllers
                 log.LogError("BACKEND_URL not set");
                 return new List<string> { "BACKEND_URL not set" };
             }
+            IList<string> r = new List<string>();
+            r.Insert(0, $"BACKEND_URL={x}");
 
-            var requestUri = x;
-            var response = await client.GetAsync(requestUri);
-            IList<string> r = null;
-            if (response.IsSuccessStatusCode)
+
+            try
             {
-                r = await response.Content.ReadAsAsync<IList<string>>();
+                var requestUri = x;
+                var response = await client.GetAsync(requestUri);
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    r = await response.Content.ReadAsAsync<IList<string>>();
+                    r.Insert(0, $"BACKEND_URL={x}");
+                }
+                else
+                {
+                    log.LogError("Request to {0} failed with status code {1}", x, response.StatusCode);
+                    r.Insert(0, $"Request failed with status {response.StatusCode}");
+                }
+            } catch(Exception ex)
+            {
+                log.LogError(ex, "Request failed");
+                r.Insert(0, $"Request failed with exception {ex.Message}");
             }
+
+            
             return r;
 
         }
